@@ -1,0 +1,193 @@
+---
+title: "Hausaufgabe 03 - Hallo {dplyr}"
+author: "Füge deinen Namen hier hinzu"
+date: "Füge das Datum hier hinzu"
+output: 
+  html_document: 
+    toc: yes
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+# Ich habe hier ein paar Standardeinstellungen für dich vorgenommen
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+# Lade Packages
+
+```{r lade-packages, message=FALSE}
+
+library(nycflights13)
+library(dplyr)
+
+```
+
+# Daten erkunden
+
+Nutze die dir bekannten Funktionen um die Daten zu erkunden.
+
+```{r}
+
+```
+
+# Tastaturkürzel
+
+Ich habe hier nochmals die wichtigsten Tastaturkürzel für dich hinzugefügt
+
+- **Einen neuen Code-chunk hinzufügen:** Ctrl + Alt + I
+- **Code "Zeile für Zeile" innerhalb eines Code-chunks ausführen:** Ctrl + Enter
+- **Den gesamten Code-chunk ausführen:** Ctrl + Shift + Enter
+- **Die Pipe (%>%):** Ctrl + Shift + M
+- **Der Zuweisungs-Operator (<-)**: Alt + -
+
+# Übungen
+
+Ich habe für dich für jeden Übung eine Struktur vorbereitet. Für jede Übung ist ein Bereich für Notizen und Fragen da. Dort kannst du auch Code-chunks hinzufügen und den Code aus dem Buch kopieren und selbst ausprobieren. Auch die Fragestellungen für die Übungen aus den jeweiligen Kapiteln habe ich bereits hinzugefügt. Schreibe deinen Code in den jewiligen Bereich für die Frage.
+
+## Übung 1 - dplyr::filter()
+
+### Notizen / Fragen - Kapitel 5.1
+
+**Lösche diesen Text und füge deine Notizen und Fragen hinzu**
+
+### Notizen / Fragen - Kapitel 5.2
+
+**Lösche diesen Text und füge deine Notizen und Fragen hinzu**
+
+### Kapitel - 5.2.4 Exercises
+
+1. Find all flights that:
+    
+```{r}
+
+# a. Had an arrival delay of two or more hours
+
+
+## Du kannst diesen Text löschen und deinen Code für die Fragestellung schreiben
+
+
+# b. Flew to Houston (`IAH` or `HOU`)
+
+
+# c. Were operated by United, American, or Delta
+
+
+# d. Departed in summer (July, August, and September)
+
+
+# e. Arrived more than two hours late, but didn't leave late
+
+
+# f. Were delayed by at least an hour, but made up over 30 minutes in flight
+
+
+# g. Departed between midnight and 6am (inclusive)
+
+
+
+```
+
+2. Another useful dplyr filtering helper is `between()`.
+   What does it do?
+   Can you use it to simplify the code needed to answer the previous challenges?
+    
+```{r}
+
+
+
+```
+
+3. How many flights have a missing `dep_time`?
+   What other variables are missing?
+   What might these rows represent?
+   
+```{r}
+
+
+
+```
+
+4. Why is `NA ^ 0` not missing?
+   Why is `NA | TRUE` not missing?
+   Why is `FALSE & NA` not missing?
+   Can you figure out the general rule?
+   (`NA * 0` is a tricky counterexample!)
+
+```{r}
+
+
+
+```
+
+## Übung 2 - dplyr::arrange()
+
+### Notizen / Fragen - Kapitel 5.3
+
+### Kapitel - 5.3.1 Exercises
+
+1. How could you use `arrange()` to sort all missing values to the start?
+   (Hint: use `is.na()`).
+   
+**Lösche diesen Text und füge deine Code-chunks ab hier selbst hinzu**
+
+2. Sort `flights` to find the most delayed flights.
+   Find the flights that left earliest.
+
+3. Sort `flights` to find the fastest (highest speed) flights.
+
+4. Which flights travelled the farthest?
+   Which travelled the shortest?
+
+## Übung 3 - dplyr::select()
+
+### Notizen / Fragen - Kapitel 5.4
+
+### Kapitel - 5.4.1 Exercises
+
+1. Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
+
+2. What happens if you include the name of a variable multiple times in a `select()` call?
+
+3. What does the `any_of()` function do?
+   Why might it be helpful in conjunction with this vector?
+
+```{r}
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+```
+
+4. Does the result of running the following code surprise you?
+
+- How do the select helpers deal with case by default? (**Tipp:** Schau bei Arguments in der Hilfedatei für `tidyselect::starts_with` nach)
+- How can you change that default?
+
+```{r, eval = FALSE}
+
+select(flights, contains("TIME"))
+
+?tidyselect::starts_with
+
+```
+
+## Übung 4 - dplyr::mutate() (Bonus)
+
+### Notizen / Fragen - Kapitel 5.5
+
+### Kapitel - 5.5.2 Exercises
+
+1. Currently `dep_time` and `sched_dep_time` are convenient to look at, but hard to compute with because they're not really continuous numbers.
+  Convert them to a more convenient representation of number of minutes since midnight.
+  
+2. Compare `air_time` with `arr_time - dep_time`.
+   What do you expect to see?
+   What do you see?
+   What do you need to do to fix it?
+
+3. Compare `dep_time`, `sched_dep_time`, and `dep_delay`.
+   How would you expect those three numbers to be related?
+
+4. Find the 10 most delayed flights using a ranking function.
+   How do you want to handle ties?
+   Carefully read the documentation for `min_rank()`.
+
+5. What does `1:3 + 1:10` return?
+   Why?
