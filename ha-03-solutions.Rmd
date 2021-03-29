@@ -6,6 +6,8 @@ output:
   html_document: 
     toc: yes
     toc_float: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -27,6 +29,8 @@ library(dplyr)
 Nutze die dir bekannten Funktionen um die Daten zu erkunden.
 
 ```{r}
+
+
 
 ```
 
@@ -70,6 +74,9 @@ flights %>%
 flights %>% 
   filter(dest %in% c("IAH", "HOU"))
 
+flights %>% 
+  filter(dest == "IAH" | dest == "HOU")
+
 # c. Were operated by United, American, or Delta
 
 # Dataframe airlines anschauen um den Airline Code für die Namen zu finden
@@ -104,7 +111,6 @@ flights %>%
 2. Another useful dplyr filtering helper is `between()`.
 What does it do?
 Can you use it to simplify the code needed to answer the previous challenges?
-
 
 ```{r}
 
@@ -147,6 +153,19 @@ df %>%
 
 df %>% 
   filter(is.na(x) | x > 1)
+
+## 
+
+tib <- tibble(x = c(1, NA, 3),
+       y = c(2, 4, NA))
+
+df <- data.frame(x = c(1, 2))
+
+class(df)
+class(tib)
+
+df
+tib
 
 ```
 
