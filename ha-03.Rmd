@@ -88,7 +88,7 @@ Ich habe für dich für jede Übung eine Struktur vorbereitet. Es ist ein Bereic
 ```
 
 2. Another useful dplyr filtering helper is `between()`.
-   What does it do?
+   What does it do? (**Tipp:** Führe `?between` in deiner Console aus um mehr über die Funktion zu lernen.)
    Can you use it to simplify the code needed to answer the previous challenges?
     
 ```{r}
@@ -107,35 +107,20 @@ Ich habe für dich für jede Übung eine Struktur vorbereitet. Es ist ein Bereic
 
 ```
 
-4. Why is `NA ^ 0` not missing?
-   Why is `NA | TRUE` not missing?
-   Why is `FALSE & NA` not missing?
-   Can you figure out the general rule?
-   (`NA * 0` is a tricky counterexample!)
-
-```{r}
-
-
-
-```
-
 ## Übung 2 - dplyr::arrange()
 
 ### Notizen / Fragen - Kapitel 5.3
 
 ### Kapitel - 5.3.1 Exercises
 
-1. How could you use `arrange()` to sort all missing values to the start?
-   (Hint: use `is.na()`).
-   
-**Lösche diesen Text und füge deine Code-chunks ab hier selbst hinzu**
-
-2. Sort `flights` to find the most delayed flights.
+1. Sort `flights` to find the most delayed flights.
    Find the flights that left earliest.
 
-3. Sort `flights` to find the fastest (highest speed) flights.
+**Lösche diesen Text und füge deine Code-chunks ab hier selbst hinzu**
 
-4. Which flights travelled the farthest?
+2. Sort `flights` to find the fastest (highest speed) flights.
+
+3. Which flights travelled the farthest?
    Which travelled the shortest?
 
 ## Übung 3 - dplyr::select()
@@ -147,24 +132,3 @@ Ich habe für dich für jede Übung eine Struktur vorbereitet. Es ist ein Bereic
 1. Brainstorm as many ways as possible to select `dep_time`, `dep_delay`, `arr_time`, and `arr_delay` from `flights`.
 
 2. What happens if you include the name of a variable multiple times in a `select()` call?
-
-3. What does the `any_of()` function do?
-   Why might it be helpful in conjunction with this vector?
-
-```{r}
-vars <- c("year", "month", "day", "dep_delay", "arr_delay")
-```
-
-4. Does the result of running the following code surprise you?
-
-- How do the select helpers deal with case by default? (**Tipp:** Schau bei Arguments in der Hilfedatei für `tidyselect::starts_with` nach)
-- How can you change that default?
-
-```{r, eval = FALSE}
-
-select(flights, contains("TIME"))
-
-?tidyselect::starts_with
-
-```
-

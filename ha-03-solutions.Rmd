@@ -117,6 +117,14 @@ Can you use it to simplify the code needed to answer the previous challenges?
 flights %>% 
   filter(between(month, 7, 9))
 
+flights %>% 
+  filter(month %in% c(7:9))
+
+library(palmerpenguins)
+
+penguins %>% 
+  filter(between(bill_depth_mm, 20, 25))
+
 ```
 
 3. How many flights have a missing `dep_time`?
@@ -134,128 +142,14 @@ flights %>%
 
 ```
 
-**Was ist ein tibble?** 
-
-Mit der `tibble()` Funktion lässt sich ein Dataframe erstellen. In dem Beispiel unten siehst du einen Dataframe mit einer Spalte/Variable x und drei Reihen 1, NA, 3. 
-
-Die Funktion `filter()` nimmt dann diesen Dataframe mit dem Namen `df` und filtert die Variable x nach allen Beobachtungen > 1. Was über bleibt ist nur die Beobachtung 3. 
-
-Darauf folgend nimmt die Funktion `filter()` den Dataframe mit dem Namen `df` und filtert die Variable x nach allen Beobachtung welche “nicht NA” sind oder > 1 sind. Was über bleibt ist NA und 3.
-
-```{r}
-
-# Was ist ein tibble?
-
-df <- tibble(x = c(1, NA, 3))
-
-df %>% 
-  filter(x > 1)
-
-df %>% 
-  filter(is.na(x) | x > 1)
-
-## 
-
-tib <- tibble(x = c(1, NA, 3),
-       y = c(2, 4, NA))
-
-df <- data.frame(x = c(1, 2))
-
-class(df)
-class(tib)
-
-df
-tib
-
-```
-
-4. Why is `NA ^ 0` not missing?
-Why is `NA | TRUE` not missing?
-Why is `FALSE & NA` not missing?
-Can you figure out the general rule?
-(`NA * 0` is a tricky counterexample!)
-
-In der Regel ist bei fast jeder Operation mit NA, auch das Ergebnis NA. "NAs sind ansteckend". Es gibt jedoch ein paar Ausnahmen, welche hier beschrieben sind.
-
-- Why is `NA ^ 0` not missing?
-
-```{r}
-# NA ^ 0 == 1, weil alle Zahlen x^0 = 1 sind.
-NA ^ 0
-
-1^0
-2^0
-3^0
-
-df %>% 
-  mutate(y = x^0)
-```
-
-- Why is `NA | TRUE` not missing?
-
-```{r}
-# Das Ergebnis ist nicht NA, sondern TRUE weil alles was *oder* TRUE ist, immer TRUE ist
-NA | TRUE 
-
-TRUE | TRUE
-1 | TRUE
-FALSE | TRUE
-
-df %>% 
-  mutate(y = x | TRUE)
-```
-
-- Why is `FALSE & NA` not missing?
-
-```{r}
-# Das Ergebnis ist FALSE, weil alles was *und* FALSE ist, immer FALSE ist
-FALSE & NA 
-
-TRUE & FALSE
-FALSE & FALSE
-
-df %>% 
-  mutate(y = x & FALSE)
-
-```
-
-
-```{r}
-# Das Ergebnis ist NA, weil TRUE | FALSE == TRUE und FALSE | FALSE == FALSE 
-NA | FALSE
-
-df %>% 
-  mutate(y = x | FALSE)
-
-1 | FALSE
-1 | 1
-3 | 6
-
-class(1)
-class(FALSE)
-
-as.numeric(FALSE)
-as.numeric(TRUE)
-
-```
-
 ## Übung 2 - dplyr::arrange()
 
 ### Notizen / Fragen - Kapitel 5.3
 
 ### Kapitel - 5.3.1 Exercises
 
-1. How could you use `arrange()` to sort all missing values to the start?
-(Hint: use `is.na()`).
 
-```{r}
-
-flights %>% 
-  arrange(desc(is.na(dep_time)), dep_time)
-
-```
-
-2. Sort `flights` to find the most delayed flights.
+1. Sort `flights` to find the most delayed flights.
 Find the flights that left earliest.
 
 ```{r}
@@ -269,7 +163,7 @@ flights %>%
 ```
 
 
-3. Sort `flights` to find the fastest (highest speed) flights.
+2. Sort `flights` to find the fastest (highest speed) flights.
 
 ```{r}
 
@@ -279,7 +173,7 @@ flights %>%
 ```
 
 
-4. Which flights travelled the farthest?
+3. Which flights travelled the farthest?
 Which travelled the shortest?
 
 ```{r}
@@ -319,7 +213,6 @@ flights %>%
 
 ```
 
-
 2. What happens if you include the name of a variable multiple times in a `select()` call?
 
 ```{r}
@@ -329,44 +222,4 @@ flights %>%
 
 ```
 
-3. What does the `any_of()` function do?
-Why might it be helpful in conjunction with this vector?
-
-```{r}
-
-# Hier wird ein Vektor mit dem Namen vars erstellt
-vars <- c("year", "month", "day", "dep_delay", "arr_delay")
-
-flights %>% 
-  select(any_of(vars))
-
-```
-
-4. Does the result of running the following code surprise you?
-
-- How do the select helpers deal with case by default? (**Tipp:** Schau bei Arguments in der Hilfedatei für `tidyselect::starts_with` nach)
-- How can you change that default?
-
-```{r, eval = TRUE}
-
-select(flights, contains("TIME"))
-
-?tidyselect::starts_with
-
-flights %>% 
-  select(contains(match = "TIME", ignore.case = FALSE))
-
-```
-
-```{r}
-
-# Ein Beispiel mit num_range()
-
-library(tidyr) # Im tidyr R Package ist ein guter Datensatz dafür enthalten
-
-billboard %>%  # Datensatz aus dem R Package tidyr
-  select(num_range(prefix = "wk", range = 6:10))
-
-
-```
 
