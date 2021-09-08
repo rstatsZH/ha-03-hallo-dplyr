@@ -107,7 +107,9 @@ Ich habe für dich für jede Übung eine Struktur vorbereitet. Es ist ein Bereic
 
 ```
 
-## Übung 2 - dplyr::arrange()
+## Übung 2 - dplyr::arrange() 
+
+**NOTIZ: Wurde im Kurs noch nicht behandelt**
 
 ### Notizen / Fragen - Kapitel 5.3
 
@@ -124,6 +126,8 @@ Ich habe für dich für jede Übung eine Struktur vorbereitet. Es ist ein Bereic
    Which travelled the shortest?
 
 ## Übung 3 - dplyr::select()
+
+**NOTIZ: Wurde im Kurs noch nicht behandelt**
 
 ### Notizen / Fragen - Kapitel 5.4
 
